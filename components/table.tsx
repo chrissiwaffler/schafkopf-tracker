@@ -1,33 +1,33 @@
-import { db, UsersTable } from '@/lib/drizzle'
-import { timeAgo } from '@/lib/utils'
-import Image from 'next/image'
-import RefreshButton from './refresh-button'
-import { seed } from '@/lib/seed'
+import { db, UsersTable } from "@/lib/drizzle";
+import { timeAgo } from "@/lib/utils";
+import Image from "next/image";
+import RefreshButton from "./refresh-button";
+import { seed } from "@/lib/seed";
 
 export default async function Table() {
-  let users
-  let startTime = Date.now()
+  let users;
+  let startTime = Date.now();
   try {
-    users = await db.select().from(UsersTable)
+    users = await db.select().from(UsersTable);
   } catch (e: any) {
     if (e.message === `relation "users" does not exist`) {
       console.log(
-        'Table does not exist, creating and seeding it with dummy data now...'
-      )
+        "Table does not exist, creating and seeding it with dummy data now..."
+      );
       // Table is not created yet
-      await seed()
-      startTime = Date.now()
-      users = await db.select().from(UsersTable)
+      await seed();
+      startTime = Date.now();
+      users = await db.select().from(UsersTable);
     } else {
-      throw e
+      throw e;
     }
   }
 
-  const duration = Date.now() - startTime
+  const duration = Date.now() - startTime;
 
   return (
-    <div className="bg-white/30 p-12 shadow-xl ring-1 ring-gray-900/5 rounded-lg backdrop-blur-lg max-w-xl mx-auto w-full">
-      <div className="flex justify-between items-center mb-4">
+    <div className="w-full max-w-xl p-12 mx-auto rounded-lg shadow-xl bg-white/30 ring-1 ring-gray-900/5 backdrop-blur-lg">
+      <div className="flex items-center justify-between mb-4">
         <div className="space-y-1">
           <h2 className="text-xl font-semibold">Recent Users</h2>
           <p className="text-sm text-gray-500">
@@ -60,5 +60,5 @@ export default async function Table() {
         ))}
       </div>
     </div>
-  )
+  );
 }

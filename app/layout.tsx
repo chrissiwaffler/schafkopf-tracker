@@ -2,7 +2,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { fontSans } from "@/lib/font";
-import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata = {
